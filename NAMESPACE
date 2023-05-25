@@ -3,3 +3,4 @@
 export(get_data)
 export(make_plot_data)
 export(plot_data)
+export(whale_dep)
