@@ -4,7 +4,6 @@
 #' @param sta_num station number
 #'
 #' @return catch and depth data by skate
-#' @export get_data
 #'
 #' @examples
 #' \dontrun{
@@ -30,7 +29,6 @@ get_data <- function(channel, sta_num ) {
 #' @param names names of the species from codes
 #'
 #' @return list of data used for making plots
-#' @export make_plot_data
 #'
 #' @examples
 #' \dontrun{

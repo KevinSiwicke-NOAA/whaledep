@@ -6,7 +6,6 @@
 #' @param catch catch data by skate
 #'
 #' @return ggplot/cowplot graphic
-#' @export plot_data
 #'
 #' @examples
 #' \dontrun{
