@@ -8,12 +8,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Imports:  ggplot2, 
-          dplyr,
-          RODBC, 
-          cowplot, 
-          RColorBrewer,
-          zoo
-Suggests: magrittr
-
-
+Imports: 
+    ggplot2,
+    dplyr,
+    RODBC,
+    cowplot,
+    RColorBrewer,
+    zoo,
+    magrittr
