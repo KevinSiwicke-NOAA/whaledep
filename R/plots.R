@@ -40,8 +40,8 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
 
   cpue_sab <-  cpue %>%
     dplyr::filter(common_name == "Sablefish") %>%
-    group_by(station, depth_stratum) %>%
-    summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
+    dplyr::group_by(station, depth_stratum) %>%
+    dplyr::summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
 
   cpue_spp <-  cpue %>%
     dplyr::filter(common_name == "Sablefish") %>%
