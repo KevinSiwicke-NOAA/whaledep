@@ -20,6 +20,9 @@ plot_data(
 
 \item{catch}{catch data by skate}
 }
+\value{
+ggplot/cowplot graphic
+}
 \description{
 make and save plots for use in assessing whale depredation
 }

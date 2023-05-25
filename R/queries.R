@@ -3,8 +3,8 @@
 #' @param channel channel to the at-sea database
 #' @param sta_num station number
 #'
-#' @return
-#' @export dat_list list of depth by skate and catch by skate
+#' @return catch and depth data by skate
+#' @export get_data
 #'
 #' @examples
 #' \dontrun{
@@ -29,8 +29,8 @@ get_data <- function(channel = channel, sta_num = 1) {
 #' @param strat depth strata
 #' @param names names of the species from codes
 #'
-#' @return
-#' @export plot_data list with data to be used for making plots
+#' @return list of data used for making plots
+#' @export make_plot_data
 #'
 #' @examples
 #' \dontrun{

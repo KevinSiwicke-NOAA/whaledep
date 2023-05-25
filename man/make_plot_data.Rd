@@ -15,6 +15,9 @@ make_plot_data(depth = depth, cat = cat, strat = strat, names = names)
 
 \item{names}{names of the species from codes}
 }
+\value{
+list of data used for making plots
+}
 \description{
 prepare data for plots
 }

@@ -11,12 +11,13 @@ The goal of whaledep is to ...
 You can install the development version of whaledep like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("devtools")
+devtools::install_github("KSiwicke/whaledep")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Insert quick example...
 
 ``` r
 library(whaledep)

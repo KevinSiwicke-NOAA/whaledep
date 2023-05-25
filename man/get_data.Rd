@@ -11,6 +11,9 @@ get_data(channel = channel, sta_num = 1)
 
 \item{sta_num}{station number}
 }
+\value{
+catch and depth data by skate
+}
 \description{
 query the at-sea Access database for catch data
 }

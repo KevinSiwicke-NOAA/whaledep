@@ -5,7 +5,7 @@
 #' @param dep depredation evidence
 #' @param catch catch data by skate
 #'
-#' @return
+#' @return ggplot/cowplot graphic
 #' @export plot_data
 #'
 #' @examples
@@ -75,12 +75,10 @@ plot_data <- function(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, 
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 2)) +
     name_colScale
 
-  plot <- cowplot::plot_grid(nrow = 3, plot1, plot2, plot3, rel_heights = c(1, 1, 2))
+  plt <- cowplot::plot_grid(nrow = 3, plot1, plot2, plot3, rel_heights = c(1, 1, 2))
   st = unique(catch$station)
   file <- paste0(getwd(), "/Station_", st, ".png")
 
-  cowplot::save_plot(file, plot, base_height = 12)
-  return(plot)
+  cowplot::save_plot(file, plt, base_height = 12)
+  return(plt)
 }
-
-

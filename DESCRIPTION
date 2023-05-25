@@ -1,11 +1,18 @@
 Package: whaledep
-Title: What the Package Does (One Line, Title Case)
+Title: Assess if and when whale depredation occurs on the AFSC LLS
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Kevin", "Siwicke", , "first.last@example.com", role = c("aut", "cre"))
+Description: Pulls data from at-sea database, prepares it for plots, then makes and saves plots. These are used to make a determination of the skate number at which whale depredation begins, and sometimes ends.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports:  ggplot2, 
+          dplyr,
+          RODBC, 
+          cowplot, 
+          RColorBrewer,
+          magrittr
+
+
