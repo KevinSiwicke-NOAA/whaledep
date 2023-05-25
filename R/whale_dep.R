@@ -30,5 +30,5 @@ whale_dep <- function(channel, station) {
   catch <- plot_dat[[4]]
   spp_sum <- plot_dat[[5]]
 
-  plt <- whaledep:::plot_data(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, dep = dep, catch = catch)
+  plt <- whaledep:::plot_data(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, dep = dep, catch = catch, spp_sum = spp_sum)
 }
