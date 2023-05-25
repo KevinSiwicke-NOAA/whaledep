@@ -52,7 +52,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
     dplyr::filter(common_name == "Sablefish") %>%
     dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
 
-  plot2 <- ggplot2::ggplot(cpue %>% filter(common_name == "Sablefish"), ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
+  plot2 <- ggplot2::ggplot(cpue %>% dplyr::filter(common_name == "Sablefish"), ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
     ggplot2::geom_point(size = 2) +
     ggplot2::geom_line(data = roll, ggplot2::aes(x = hachi, y = ma3), col = "blue") +
     ggplot2::scale_x_continuous(expand = c(0, 0))  +
