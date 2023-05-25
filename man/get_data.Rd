@@ -4,7 +4,7 @@
 \alias{get_data}
 \title{query the at-sea Access database for catch data}
 \usage{
-get_data(channel = channel, sta_num = 1)
+get_data(channel, sta_num)
 }
 \arguments{
 \item{channel}{channel to the at-sea database}
@@ -19,6 +19,6 @@ query the at-sea Access database for catch data
 }
 \examples{
 \dontrun{
-get_data(channel = channel, sta_num = 1)
+get_data(channel, sta_num = 70)
 }
 }

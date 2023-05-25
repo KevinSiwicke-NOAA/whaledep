@@ -10,9 +10,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' plot_data(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, dep = dep, catch = catch
+#' plot_data(depth_strat, spp_sum_strat, dep, catch)
 #' }
-plot_data <- function(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, dep = dep, catch = catch) {
+plot_data <- function(depth_strat, spp_sum_strat, dep, catch) {
   nameColors <- c(RColorBrewer::brewer.pal(9, "Set1"), "black")
   names(nameColors) <- levels(spp_sum_strat$common_name)
   name_colScale <- ggplot2::scale_fill_manual(name = "Hook Accounting", values = nameColors)

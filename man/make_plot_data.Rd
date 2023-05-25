@@ -4,7 +4,7 @@
 \alias{make_plot_data}
 \title{prepare data for plots}
 \usage{
-make_plot_data(depth = depth, cat = cat, strat = strat, names = names)
+make_plot_data(depth, cat, strat, names)
 }
 \arguments{
 \item{depth}{depth by skate}
@@ -23,6 +23,6 @@ prepare data for plots
 }
 \examples{
 \dontrun{
-plot_data(depth = depth, cat = cat, strat = strat, names = names)
+plot_data(depth, cat, strat, names)
 }
 }

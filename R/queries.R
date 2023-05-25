@@ -8,9 +8,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_data(channel = channel, sta_num = 1)
+#' get_data(channel, sta_num = 70)
 #' }
-get_data <- function(channel = channel, sta_num = 1) {
+get_data <- function(channel, sta_num ) {
   depth <- RODBC::sqlQuery(channel, base::paste0("select * from Depth where station = ", sta_num)) %>%
            dplyr::rename_all(tolower)
 
@@ -34,9 +34,9 @@ get_data <- function(channel = channel, sta_num = 1) {
 #'
 #' @examples
 #' \dontrun{
-#' plot_data(depth = depth, cat = cat, strat = strat, names = names)
+#' plot_data(depth, cat, strat, names)
 #' }
-make_plot_data <- function(depth = depth, cat = cat, strat = strat, names = names) {
+make_plot_data <- function(depth, cat, strat, names) {
   strat$depth_stratum <- base::paste0(strat$startdepth, "-", strat$enddepth, " m")
 
   catch <- dplyr::left_join(cat, names, by = c("species_code" = "species code")) %>%

@@ -13,6 +13,7 @@ Imports:  ggplot2,
           RODBC, 
           cowplot, 
           RColorBrewer,
-          magrittr
+          zoo
+Suggests: magrittr
 
 
