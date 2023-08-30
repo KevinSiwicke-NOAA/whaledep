@@ -55,7 +55,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
   plot2 <- ggplot2::ggplot(cpue %>% dplyr::filter(common_name == "Sablefish"), ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
     ggplot2::geom_point(size = 2) +
     ggplot2::geom_line(data = roll, ggplot2::aes(x = hachi, y = ma3), col = "blue") +
-    ggplot2::scale_x_continuous(expand = c(0, 0))  +
+    ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(min(depth_strat$hachi), max(depth_strat$hachi))) +
     ggplot2::ylab("Sablefish CPUE") +
     ggplot2::xlab("Skate #") +
     dep_colScale +
