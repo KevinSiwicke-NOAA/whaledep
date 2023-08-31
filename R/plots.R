@@ -32,27 +32,19 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
 
   depth_strat$effective <- 45 - depth_strat$ineffective
 
-  cpue <- dplyr::left_join(depth_strat, spp_sum, by = c("station", "haul", "hachi"))
+  cpue <- dplyr::left_join(depth_strat, spp_sum %>% dplyr::filter(common_name == "Sablefish")) %>%
+    dplyr::mutate(common_name = "Sablefish",
+                  cat_spp = ifelse(is.na(cat_spp), 0, cat_spp),
+                  spp_cpue = ifelse(cat_spp == 0, 0, cat_spp / effective))
 
-  cpue$cat_spp <- ifelse(is.na(cpue$cat_spp), 0, cpue$cat_spp)
-
-  cpue$spp_cpue = cpue$cat_spp / cpue$effective
-
-  cpue_sab <-  cpue %>%
-    dplyr::filter(common_name == "Sablefish") %>%
-    dplyr::group_by(station, depth_stratum) %>%
-    dplyr::summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
-
-  cpue_spp <-  cpue %>%
-    dplyr::filter(common_name == "Sablefish") %>%
+  cpue_sab_strat <-  cpue %>%
     dplyr::group_by(station, depth_stratum) %>%
     dplyr::summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
 
   roll <- cpue %>%
-    dplyr::filter(common_name == "Sablefish") %>%
     dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
 
-  plot2 <- ggplot2::ggplot(cpue %>% dplyr::filter(common_name == "Sablefish"), ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
+  plot2 <- ggplot2::ggplot(cpue, ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
     ggplot2::geom_point(size = 2) +
     ggplot2::geom_line(data = roll, ggplot2::aes(x = hachi, y = ma3), col = "blue") +
     ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(min(depth_strat$hachi), max(depth_strat$hachi))) +
@@ -60,7 +52,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
     ggplot2::xlab("Skate #") +
     dep_colScale +
     ggplot2::theme(legend.position = "none") +
-    ggplot2::geom_segment(data = cpue_sab, ggplot2::aes(x = min_x, xend = max_x, y = ds_mean, yend = ds_mean), linewidth = 0.5, lty = 2)
+    ggplot2::geom_segment(data = cpue_sab_strat, ggplot2::aes(x = min_x, xend = max_x, y = ds_mean, yend = ds_mean), linewidth = 0.5, lty = 2)
 
   plot3 <- ggplot2::ggplot(spp_sum_strat) +
     ggplot2::geom_col(ggplot2::aes(hachi, cat_spp, fill = common_name), col = "black") +
