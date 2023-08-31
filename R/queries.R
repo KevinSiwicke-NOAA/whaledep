@@ -83,7 +83,7 @@ make_plot_data <- function(depth, cat, strat, names) {
 
   cpue_sab_strat <-  cpue %>%
     dplyr::group_by(station, depth_stratum) %>%
-    dplyr::summarize(ds_mean = mean(spp_cpue), ds_var = var(spp_cpue), num_skates = count(), min_x = min(hachi), max_x = max(hachi))
+    dplyr::summarize(ds_mean = mean(spp_cpue), ds_var = var(spp_cpue), num_skates = dplyr::n(), min_x = min(hachi), max_x = max(hachi))
 
   roll <- cpue %>%
     dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
