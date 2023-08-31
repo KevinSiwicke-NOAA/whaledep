@@ -34,7 +34,7 @@ whale_dep <- function(channel, station) {
   roll <- plot_dat[[8]]
 
   cpue_sab_strat %>%
-    write_csv(paste0(station, '_cpue.csv'))
+    dplyr::write_csv(paste0(station, '_cpue.csv'))
 
   plt <- whaledep:::plot_data(depth_strat = depth_strat, spp_sum_strat = spp_sum_strat, dep = dep, catch = catch, spp_sum = spp_sum, cpue = cpue, cpue_sab_strat = cpue_sab_strat, roll = roll)
 }
