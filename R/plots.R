@@ -9,9 +9,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' plot_data(depth_strat, spp_sum_strat, dep, catch, spp_sum)
+#' plot_data(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpue_sab_strat, roll)
 #' }
-plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
+plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpue_sab_strat, roll) {
   nameColors <- c(RColorBrewer::brewer.pal(9, "Set1"), "black")
   names(nameColors) <- levels(spp_sum_strat$common_name)
   name_colScale <- ggplot2::scale_fill_manual(name = "Hook Accounting", values = nameColors)
@@ -29,20 +29,6 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum) {
     ggplot2::theme(legend.position = "bottom") +
     ggplot2::scale_y_reverse() +
     dep_colScale
-
-  depth_strat$effective <- 45 - depth_strat$ineffective
-
-  cpue <- dplyr::left_join(depth_strat, spp_sum %>% dplyr::filter(common_name == "Sablefish")) %>%
-    dplyr::mutate(common_name = "Sablefish",
-                  cat_spp = ifelse(is.na(cat_spp), 0, cat_spp),
-                  spp_cpue = ifelse(cat_spp == 0, 0, cat_spp / effective))
-
-  cpue_sab_strat <-  cpue %>%
-    dplyr::group_by(station, depth_stratum) %>%
-    dplyr::summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
-
-  roll <- cpue %>%
-    dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
 
   plot2 <- ggplot2::ggplot(cpue, ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
     ggplot2::geom_point(size = 2) +

@@ -74,5 +74,19 @@ make_plot_data <- function(depth, cat, strat, names) {
     dplyr::group_by(station, haul, hachi) %>%
     dplyr::summarize(tot_dep = sum(depredated_freq))
 
-  plot_data <- list(depth_strat, spp_sum_strat, dep, catch, spp_sum)
+  depth_strat$effective <- 45 - depth_strat$ineffective
+
+  cpue <- dplyr::left_join(depth_strat, spp_sum %>% dplyr::filter(common_name == "Sablefish")) %>%
+    dplyr::mutate(common_name = "Sablefish",
+                  cat_spp = ifelse(is.na(cat_spp), 0, cat_spp),
+                  spp_cpue = ifelse(cat_spp == 0, 0, cat_spp / effective))
+
+  cpue_sab_strat <-  cpue %>%
+    dplyr::group_by(station, depth_stratum) %>%
+    dplyr::summarize(ds_mean = mean(spp_cpue), min_x = min(hachi), max_x = max(hachi))
+
+  roll <- cpue %>%
+    dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
+
+  plot_data <- list(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpue_sab_strat, roll)
 }
