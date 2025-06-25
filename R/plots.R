@@ -32,7 +32,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
                    panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
                    panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
                    panel.margin = ggplot2::unit(0.25, "lines")) +
-    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
+    ggplot2::guides(col = ggplot2::guide_legend(nrow = 1)) +
     ggplot2::scale_y_reverse() +
     dep_colScale
 
