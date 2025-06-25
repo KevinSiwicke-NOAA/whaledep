@@ -27,7 +27,11 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::ylab("Depth (m)") +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::theme(legend.position = "bottom",
-                   plot.background = element_rect(fill = 'white', colour = 'grey')) +
+                   panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+                   panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
+                   panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
+                   panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
+                   panel.margin = ggplot2::unit(0.25, "lines")) +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
     ggplot2::scale_y_reverse() +
     dep_colScale
@@ -39,7 +43,12 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::ylab("Sablefish CPUE") +
     ggplot2::xlab("Skate #") +
     dep_colScale +
-    ggplot2::theme(legend.position = "none", plot.background = element_rect(fill = 'white', colour = 'grey')) +
+    ggplot2::theme(legend.position = "none",
+                   panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+                   panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
+                   panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
+                   panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
+                   panel.margin = ggplot2::unit(0.25, "lines")) +
     ggplot2::geom_segment(data = cpue_sab_strat, ggplot2::aes(x = min_x, xend = max_x, y = ds_mean, yend = ds_mean), linewidth = 0.5, lty = 2)
 
   plot3 <- ggplot2::ggplot(spp_sum_strat) +
@@ -50,7 +59,11 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::xlab("Skate #") +
     ggplot2::ylab("Cumulative Catch") +
     ggplot2::theme(legend.position = "bottom",
-                   plot.background = element_rect(fill = 'white', colour = 'grey')) +
+                   panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+                   panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
+                   panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
+                   panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
+                   panel.margin = ggplot2::unit(0.25, "lines")) +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 2)) +
     name_colScale
