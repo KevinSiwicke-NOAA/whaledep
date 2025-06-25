@@ -26,9 +26,9 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::xlab("Skate #") +
     ggplot2::ylab("Depth (m)") +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
-    ggplot2::theme(legend.position = "bottom") +
+    ggplot2::theme(legend.position = "bottom",
+                   plot.background = element_rect(fill = 'white', colour = 'grey')) +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
-    ggplot2::theme_bw() +
     ggplot2::scale_y_reverse() +
     dep_colScale
 
@@ -38,9 +38,8 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(min(depth_strat$hachi), max(depth_strat$hachi))) +
     ggplot2::ylab("Sablefish CPUE") +
     ggplot2::xlab("Skate #") +
-    ggplot2::theme_bw() +
     dep_colScale +
-    ggplot2::theme(legend.position = "none") +
+    ggplot2::theme(legend.position = "none", plot.background = element_rect(fill = 'white', colour = 'grey')) +
     ggplot2::geom_segment(data = cpue_sab_strat, ggplot2::aes(x = min_x, xend = max_x, y = ds_mean, yend = ds_mean), linewidth = 0.5, lty = 2)
 
   plot3 <- ggplot2::ggplot(spp_sum_strat) +
@@ -50,9 +49,9 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::labs(fill = "Hook Accounting") +
     ggplot2::xlab("Skate #") +
     ggplot2::ylab("Cumulative Catch") +
-    ggplot2::theme(legend.position = "bottom") +
+    ggplot2::theme(legend.position = "bottom",
+                   plot.background = element_rect(fill = 'white', colour = 'grey')) +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
-    ggplot2::theme_bw() +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 2)) +
     name_colScale
 
