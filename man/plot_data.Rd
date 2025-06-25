@@ -4,7 +4,16 @@
 \alias{plot_data}
 \title{make and save plots for use in assessing whale depredation}
 \usage{
-plot_data(depth_strat, spp_sum_strat, dep, catch, spp_sum)
+plot_data(
+  depth_strat,
+  spp_sum_strat,
+  dep,
+  catch,
+  spp_sum,
+  cpue,
+  cpue_sab_strat,
+  roll
+)
 }
 \arguments{
 \item{depth_strat}{depth strata distinctions}
@@ -23,6 +32,6 @@ make and save plots for use in assessing whale depredation
 }
 \examples{
 \dontrun{
-plot_data(depth_strat, spp_sum_strat, dep, catch, spp_sum)
+plot_data(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpue_sab_strat, roll)
 }
 }
