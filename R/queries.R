@@ -13,12 +13,18 @@ get_data <- function(channel, sta_num ) {
   depth <- RODBC::sqlQuery(channel, base::paste0("select * from Depth where station = ", sta_num)) %>%
            dplyr::rename_all(tolower)
 
-  cat <- RODBC::sqlQuery(channel , base::paste0("select * from Catch where station = ", sta_num)) %>%
+  cat <- RODBC::sqlQuery(channel, base::paste0("select * from Catch where station = ", sta_num)) %>%
          dplyr::rename_all(tolower)
+
+  names <- RODBC::sqlQuery(channel, base::paste0("select * from \"Sppcode Catch\"")) %>%
+    dplyr::rename_all(tolower)
+
+  strat <- RODBC::sqlQuery(channel, base::paste0("select * from DepthStratum")) %>%
+    dplyr::rename_all(tolower)
 
   RODBC::odbcClose(channel)
 
-  dat_list <- list(depth, cat)
+  dat_list <- list(depth, cat, names, strat)
 }
 
 #' prepare data for plots
@@ -32,7 +38,7 @@ get_data <- function(channel, sta_num ) {
 #'
 #' @examples
 #' \dontrun{
-#' plot_data(depth, cat, strat, names)
+#' make_plot_data(depth, cat, strat, names)
 #' }
 make_plot_data <- function(depth, cat, strat, names) {
   strat$depth_stratum <- base::paste0(strat$startdepth, "-", strat$enddepth, " m")

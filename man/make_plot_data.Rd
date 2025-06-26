@@ -23,6 +23,6 @@ prepare data for plots
 }
 \examples{
 \dontrun{
-plot_data(depth, cat, strat, names)
+make_plot_data(depth, cat, strat, names)
 }
 }
