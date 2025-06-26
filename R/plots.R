@@ -32,7 +32,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
                    panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
                    panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
                    panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
-                   panel.margin = ggplot2::unit(0.25, "lines")) +
+                   panel.spacing = ggplot2::unit(0.25, "lines")) +
     ggplot2::guides(col = ggplot2::guide_legend(nrow = 1)) +
     ggplot2::scale_y_reverse() +
     dep_colScale
@@ -49,7 +49,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
                    panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
                    panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
                    panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
-                   panel.margin = ggplot2::unit(0.25, "lines")) +
+                   panel.spacing = ggplot2::unit(0.25, "lines")) +
     ggplot2::geom_segment(data = cpue_sab_strat, ggplot2::aes(x = min_x, xend = max_x, y = ds_mean, yend = ds_mean), linewidth = 0.5, lty = 2)
 
   plot3 <- ggplot2::ggplot(spp_sum_strat) +
@@ -64,7 +64,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
                    panel.border = ggplot2::element_rect(fill = NA, colour="grey50"),
                    panel.grid.major = ggplot2::element_line(colour = "grey90", size = 0.2),
                    panel.grid.minor = ggplot2::element_line(colour = "grey98", size = 0.5),
-                   panel.margin = ggplot2::unit(0.25, "lines")) +
+                   panel.spacing = ggplot2::unit(0.25, "lines")) +
     ggplot2::scale_x_continuous(expand = c(0,0), limits = c(0, max(depth_strat$hachi) + 1), breaks = seq(0, max(depth_strat$hachi), by = 5)) +
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = 2)) +
     name_colScale
