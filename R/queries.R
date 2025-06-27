@@ -22,8 +22,6 @@ get_data <- function(channel, sta_num ) {
   strat <- RODBC::sqlQuery(channel, base::paste0("select * from DepthStratum")) %>%
     dplyr::rename_all(tolower)
 
-  RODBC::odbcClose(channel)
-
   dat_list <- list(depth, cat, names, strat)
 }
 
