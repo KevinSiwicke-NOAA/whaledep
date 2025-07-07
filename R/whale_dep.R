@@ -27,4 +27,15 @@ whale_dep <- function(channel, station) {
                               cpue = plot_dat[[6]],
                               cpue_sab_strat = cpue_sab_strat,
                               roll = plot_dat[[8]])
+
+  prev_cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
+  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(.))
+
+  all_cpue <- dplyr::bind_rows(prev_cpue, cpue_sab_strat)
+
+  cpue_plt <- ggplot2::ggplot(all_cpue, ggplot2::aes(depth_stratum, ds_mean, size = num_skates)) +
+    ggplot2::geom_jitter() +
+    ggplot2::geom_text(ggplot2::aes(label = station))
+
+  ggplot2::ggsave(plot = cpue_plt, filename = "cpue_compare.png", height = 8, width = 8)
 }
