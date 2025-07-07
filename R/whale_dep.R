@@ -29,13 +29,20 @@ whale_dep <- function(channel, station) {
                               roll = plot_dat[[8]])
 
   prev_cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
-  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(.))
+  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE))
+  stn_area = dat[[5]]
 
-  all_cpue <- dplyr::bind_rows(prev_cpue, cpue_sab_strat)
+  all_cpue <- dplyr::bind_rows(prev_cpue, cpue_sab_strat) %>%
+    dplyr::left_join(stn_area) %>%
+    dplyr::filter(!is.na(depth_stratum)) %>%
+    dplyr::mutate(depth_stratum = factor(depth_stratum), levels = c("0-100 m", "101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m"))
+
+  stn_area = dat[[5]]
 
   cpue_plt <- ggplot2::ggplot(all_cpue, ggplot2::aes(depth_stratum, ds_mean, size = num_skates)) +
-    ggplot2::geom_jitter() +
-    ggplot2::geom_text(ggplot2::aes(label = station))
+    ggplot2::geom_text(ggplot2::aes(label = station), position = 'jitter') +
+    ggplot2::labs(x = "Depth strata", y = "Station CPUE", size = "# Skates") +
+    ggplot2::facet_wrap(~area_id)
 
   ggplot2::ggsave(plot = cpue_plt, filename = "cpue_compare.png", height = 8, width = 8)
 }

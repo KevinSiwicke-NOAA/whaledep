@@ -15,4 +15,5 @@ Imports:
     cowplot,
     RColorBrewer,
     zoo,
-    magrittr
+    magrittr,
+    purrr

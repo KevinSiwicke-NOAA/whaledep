@@ -22,7 +22,11 @@ get_data <- function(channel, sta_num ) {
   strat <- RODBC::sqlQuery(channel, base::paste0("select * from DepthStratum")) %>%
     dplyr::rename_all(tolower)
 
-  dat_list <- list(depth, cat, names, strat)
+  stn_area <- RODBC::sqlQuery(channel, base::paste0("select * from Stations")) %>%
+    dplyr::rename_all(tolower) |>
+    dplyr::rename(station = station_number)
+
+  dat_list <- list(depth, cat, names, strat, stns)
 }
 
 #' prepare data for plots
