@@ -26,7 +26,7 @@ get_data <- function(channel, sta_num ) {
     dplyr::rename_all(tolower) |>
     dplyr::rename(station = station_number)
 
-  dat_list <- list(depth, cat, names, strat, stns)
+  dat_list <- list(depth, cat, names, strat, stn_area)
 }
 
 #' prepare data for plots
