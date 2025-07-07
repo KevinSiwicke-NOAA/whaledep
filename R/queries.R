@@ -82,10 +82,12 @@ make_plot_data <- function(depth, cat, strat, names) {
 
   cpue <- dplyr::left_join(depth_strat, spp_sum %>% dplyr::filter(common_name == "Sablefish")) %>%
     dplyr::mutate(common_name = "Sablefish",
+                  skate_eff = ifelse(ineffective > 5, 'ineff', 'eff'),
                   cat_spp = ifelse(is.na(cat_spp), 0, cat_spp),
                   spp_cpue = ifelse(cat_spp == 0, 0, cat_spp / effective))
 
   cpue_sab_strat <-  cpue %>%
+    dplyr::filter(skate_eff == 'eff') |>
     dplyr::group_by(station, depth_stratum) %>%
     dplyr::summarize(ds_mean = mean(spp_cpue), ds_var = var(spp_cpue), num_skates = dplyr::n(), min_x = min(hachi), max_x = max(hachi))
 

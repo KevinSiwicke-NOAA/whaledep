@@ -37,8 +37,9 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
     ggplot2::scale_y_reverse() +
     dep_colScale
 
-  plot2 <- ggplot2::ggplot(cpue, ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
+  plot2 <- ggplot2::ggplot(cpue |> dplyr::filter(skate_eff == 'eff'), ggplot2::aes(hachi, spp_cpue, col = depth_stratum)) +
     ggplot2::geom_point(size = 2) +
+    ggplot2::geom_point(data = cpue |> dplyr::filter(skate_eff == 'ineff'), ggplot2::aes(hachi, spp_cpue, col = depth_stratum), shape = 1, size = 2) +
     ggplot2::geom_line(data = roll, ggplot2::aes(x = hachi, y = ma3), col = "blue") +
     ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(0, max(depth_strat$hachi) + 1), breaks = seq(0, max(depth_strat$hachi), by = 5)) +
     ggplot2::ylab("Sablefish CPUE") +
