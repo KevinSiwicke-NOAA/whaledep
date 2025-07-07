@@ -75,7 +75,7 @@ make_plot_data <- function(depth, cat, strat, names) {
   depth_strat <- dplyr::left_join(depth, strat, by = "stratum") %>%
     dplyr::mutate(depth_stratum = factor(depth_stratum, levels=c("0-100 m", "101-200 m",
                                                                  "201-300 m",  "301-400 m",  "401-600 m",  "601-800 m",  "801-1000 m",
-                                                                 "1001-1200 m", "1200+ m")))
+                                                                 "1001-1200 m", "1201-32000 m")))
 
   dep <- catch %>%
     dplyr::filter(depredated_freq > 0) %>%

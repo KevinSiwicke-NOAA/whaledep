@@ -34,8 +34,8 @@ whale_dep <- function(channel, station) {
 
   all_cpue <- dplyr::bind_rows(prev_cpue, cpue_sab_strat) %>%
     dplyr::left_join(stn_area) %>%
-    dplyr::filter(!is.na(depth_stratum)) %>%
-    dplyr::mutate(depth_stratum = factor(depth_stratum), levels = c("0-100 m", "101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m"))
+    dplyr::filter(!depth_stratum == "1201-32000 m") %>%
+    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("0-100 m", "101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m")))
 
   stn_area = dat[[5]]
 
