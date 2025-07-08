@@ -41,10 +41,11 @@ whale_dep <- function(channel, station) {
     dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("0-100 m", "101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m")))
 
   cpue_plt <- ggplot2::ggplot() +
-    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(depth_stratum, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.25, height = 0)) +
+    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(depth_stratum, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.15, height = 0)) +
     ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'cur'), ggplot2::aes(depth_stratum, ds_mean, label = station), col = 'firebrick') +
     ggplot2::labs(x = "Depth strata", y = "Station CPUE") +
     ggplot2::facet_wrap(~area_id) +
+    ggplot2::scale_y_continuous(expand = c(0,0.05)) +
     ggplot2::theme_bw()
 
   ggplot2::ggsave(plot = cpue_plt, filename = "cpue_compare.png", height = 16, width = 16)
