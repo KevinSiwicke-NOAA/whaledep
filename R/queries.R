@@ -96,6 +96,7 @@ make_plot_data <- function(depth, cat, strat, names) {
     dplyr::summarize(ds_mean = mean(spp_cpue), ds_var = var(spp_cpue), num_skates = dplyr::n(), min_x = min(hachi), max_x = max(hachi))
 
   roll <- cpue %>%
+    dplyr::arrange(hachi) %>%
     dplyr::mutate(ma3 = zoo::rollmean(spp_cpue, 3, fill = NA))
 
   plot_data <- list(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpue_sab_strat, roll)
