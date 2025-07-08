@@ -34,18 +34,21 @@ whale_dep <- function(channel, station) {
   cur_cpue <- cpue_sab_strat[, 1:5] %>%
     dplyr::mutate(type = "cur")
   stn_area = dat[[5]]
+  strat = dat[[4]]
 
   all_cpue <- dplyr::bind_rows(prev_cpue, cur_cpue) %>%
     dplyr::left_join(stn_area) %>%
-    dplyr::filter(!depth_stratum == "1201-32000 m") %>%
-    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("0-100 m", "101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m")))
+    dplyr::filter(!depth_stratum == "1201-32000 m", !depth_stratum == "0-100 m") %>%
+    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m"))) %>%
+    dplyr::left_join(strat) %>%
+    dplyr::mutate(strat = factor(startdepth))
 
   cpue_plt <- ggplot2::ggplot() +
-    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(depth_stratum, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.15, height = 0)) +
-    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'cur'), ggplot2::aes(depth_stratum, ds_mean, label = station), col = 'firebrick') +
-    ggplot2::labs(x = "Depth strata", y = "Station CPUE") +
+    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(strat, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.15, height = 0), size = 8) +
+    ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'cur'), ggplot2::aes(strat, ds_mean, label = station), col = 'firebrick', size = 10) +
+    ggplot2::labs(x = "Depth stratum", y = "Station CPUE") +
     ggplot2::facet_wrap(~area_id) +
-    ggplot2::scale_y_continuous(expand = c(0,0.05)) +
+    ggplot2::scale_y_continuous(expand = c(0,0), limits = c(0, max(all_cpue$ds_mean + 0.02)), breaks = seq(0, max(all_cpue$ds_mean + 0.02), by = 0.1)) +
     ggplot2::theme_bw()
 
   ggplot2::ggsave(plot = cpue_plt, filename = "cpue_compare.png", height = 16, width = 16)
