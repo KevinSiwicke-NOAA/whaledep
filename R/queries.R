@@ -20,7 +20,8 @@ get_data <- function(channel, sta_num ) {
     dplyr::rename_all(tolower)
 
   strat <- RODBC::sqlQuery(channel, base::paste0("select * from DepthStratum")) %>%
-    dplyr::rename_all(tolower)
+    dplyr::rename_all(tolower) %>%
+    dplyr::mutate(depth_stratum = paste0(startdepth, "-", enddepth, " m"))
 
   stn_area <- RODBC::sqlQuery(channel, base::paste0("select * from Stations")) %>%
     dplyr::rename_all(tolower) |>
@@ -43,8 +44,6 @@ get_data <- function(channel, sta_num ) {
 #' make_plot_data(depth, cat, strat, names)
 #' }
 make_plot_data <- function(depth, cat, strat, names) {
-  strat$depth_stratum <- base::paste0(strat$startdepth, "-", strat$enddepth, " m")
-
   catch <- dplyr::left_join(cat, names, by = c("species_code" = "species code")) %>%
     dplyr::rename(common_name = "common name")
 
