@@ -23,11 +23,9 @@ get_data <- function(channel, sta_num ) {
     dplyr::rename_all(tolower) %>%
     dplyr::mutate(depth_stratum = paste0(startdepth, "-", enddepth, " m"))
 
-  stn_area <- RODBC::sqlQuery(channel, base::paste0("select * from Stations")) %>%
-    dplyr::rename_all(tolower) |>
-    dplyr::rename(station = station_number)
+  stn_geo <- readRDS(system.file("extdata", "stn_w_geo.rds", package = "whaledep"))
 
-  dat_list <- list(depth, cat, names, strat, stn_area)
+  dat_list <- list(depth, cat, names, strat, stn_geo)
 }
 
 #' prepare data for plots

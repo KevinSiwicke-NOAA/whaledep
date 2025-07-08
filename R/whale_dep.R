@@ -32,11 +32,11 @@ whale_dep <- function(channel, station) {
   cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
   cpue_dat <- cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE)) %>%
     dplyr::mutate(type = ifelse(station == stn, "cur", "prev"))
-  stn_area = dat[[5]]
+  stn_geo = dat[[5]]
   strat = dat[[4]]
 
   all_cpue <- cpue_dat %>%
-    dplyr::left_join(stn_area) %>%
+    dplyr::left_join(stn_geo) %>%
     dplyr::left_join(strat) %>%
     dplyr::filter(!depth_stratum %in% c("0-100 m", "1201-32000 m")) %>%
     dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m")),
@@ -46,7 +46,7 @@ whale_dep <- function(channel, station) {
     ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(strat, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.15, height = 0), size = 8) +
     ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'cur'), ggplot2::aes(strat, ds_mean, label = station), col = 'firebrick', size = 10) +
     ggplot2::labs(x = "Depth stratum", y = "Station CPUE") +
-    ggplot2::facet_wrap(~area_id) +
+    ggplot2::facet_wrap(~geo) +
     ggplot2::scale_y_continuous(expand = c(0, 0.01), limits = c(0, max(all_cpue$ds_mean + 0.02)), breaks = seq(0, max(all_cpue$ds_mean + 0.02), by = 0.1)) +
     ggplot2::theme_bw()
 

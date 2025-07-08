@@ -17,3 +17,6 @@ Imports:
     zoo,
     magrittr,
     purrr
+Depends: 
+    R (>= 3.5)
+LazyData: true
