@@ -40,7 +40,7 @@ whale_dep <- function(channel, station) {
     dplyr::left_join(stn_area) %>%
     dplyr::filter(!depth_stratum == "1201-32000 m", !depth_stratum == "0-100 m") %>%
     dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m"))) %>%
-    dplyr::left_join(strat) %>%
+    dplyr::left_join(plot_dat[[1]]) %>%
     dplyr::mutate(strat = factor(startdepth))
 
   cpue_plt <- ggplot2::ggplot() +
