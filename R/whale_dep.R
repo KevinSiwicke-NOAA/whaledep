@@ -47,7 +47,6 @@ whale_dep <- function(channel, station) {
     ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'cur'), ggplot2::aes(strat, ds_mean, label = station), col = 'firebrick', size = 10) +
     ggplot2::labs(x = "Depth stratum", y = "Station CPUE") +
     ggplot2::facet_wrap(~area_id) +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = 0), lty = 2) +
     ggplot2::scale_y_continuous(expand = c(0, 0.01), limits = c(0, max(all_cpue$ds_mean + 0.02)), breaks = seq(0, max(all_cpue$ds_mean + 0.02), by = 0.1)) +
     ggplot2::theme_bw()
 
