@@ -17,7 +17,7 @@ whale_dep <- function(channel, station) {
   plot_dat <- whaledep:::make_plot_data(depth = dat[[1]], cat = dat[[2]], names = dat[[3]], strat = dat[[4]])
 
   cpue_sab_strat <- plot_dat[[7]]
-  write.csv(cpue_sab_strat[, 1:5], paste0(station, '_cpue.csv'), row.names = FALSE)
+  write.csv(cpue_sab_strat[, 1:5], paste0('cpue/', station, '_cpue.csv'), row.names = FALSE)
 
   plt <- whaledep:::plot_data(depth_strat = plot_dat[[1]],
                               spp_sum_strat = plot_dat[[2]],

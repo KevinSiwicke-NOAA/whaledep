@@ -78,7 +78,7 @@ plot_data <- function(depth_strat, spp_sum_strat, dep, catch, spp_sum, cpue, cpu
 
   plt <- cowplot::plot_grid(nrow = 3, plot1, plot2, plot3, rel_heights = c(1.1, 1, 2), align = 'v')
   st = unique(catch$station)
-  file <- paste0(getwd(), "/Station_", st, ".png")
+  file <- paste0(getwd(), "/plots/Station_", st, ".png")
 
   cowplot::save_plot(file, plt, base_height = 12)
   return(plt)
