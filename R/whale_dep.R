@@ -28,19 +28,18 @@ whale_dep <- function(channel, station) {
                               cpue_sab_strat = cpue_sab_strat,
                               roll = plot_dat[[8]])
 
-  prev_cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
-  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE)) %>%
-    dplyr::mutate(type = "prev")
-  cur_cpue <- cpue_sab_strat[, 1:5] %>%
-    dplyr::mutate(type = "cur")
+  stn <- station
+  cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
+  cpue_dat <- cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE)) %>%
+    dplyr::mutate(type = ifelse(station == stn, "cur", "prev"))
   stn_area = dat[[5]]
   strat = dat[[4]]
 
-  all_cpue <- dplyr::bind_rows(prev_cpue, cur_cpue) %>%
+  all_cpue <- cpue_dat %>%
     dplyr::left_join(stn_area) %>%
-    dplyr::filter(!depth_stratum == "1201-32000 m", !depth_stratum == "0-100 m") %>%
-    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m", "1001-1200 m"))) %>%
-    dplyr::left_join(plot_dat[[1]]) %>%
+    dplyr::filter(!depth_stratum %in% c("0-100 m", "1001-1200 m","1201-32000 m")) %>%
+    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m"))) %>%
+    dplyr::left_join(strat) %>%
     dplyr::mutate(strat = factor(startdepth))
 
   cpue_plt <- ggplot2::ggplot() +
