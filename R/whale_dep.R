@@ -37,10 +37,10 @@ whale_dep <- function(channel, station) {
 
   all_cpue <- cpue_dat %>%
     dplyr::left_join(stn_area) %>%
-    dplyr::filter(!depth_stratum %in% c("0-100 m", "1201-32000 m")) %>%
-    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m"))) %>%
     dplyr::left_join(strat) %>%
-    dplyr::mutate(strat = factor(startdepth))
+    dplyr::filter(!depth_stratum %in% c("0-100 m", "1201-32000 m")) %>%
+    dplyr::mutate(depth_stratum = factor(depth_stratum, levels = c("101-200 m", "201-300 m", "301-400 m", "401-600 m", "601-800 m", "801-1000 m")),
+                  strat = factor(startdepth))
 
   cpue_plt <- ggplot2::ggplot() +
     ggplot2::geom_text(data = all_cpue %>% dplyr::filter(type == 'prev'), ggplot2::aes(strat, ds_mean, label = station), position = ggplot2::position_jitter(width = 0.15, height = 0), size = 8) +
