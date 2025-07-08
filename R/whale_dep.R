@@ -29,9 +29,9 @@ whale_dep <- function(channel, station) {
                               roll = plot_dat[[8]])
 
   prev_cpue_csv <- list.files(path = paste0(getwd(), "/cpue"), pattern = "*.csv", full.names = TRUE)
-  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE, .name_repair = "unique_quiet")) %>%
+  prev_cpue <- prev_cpue_csv %>% purrr::map_dfr(~readr::read_csv(., show_col_types = FALSE)) %>%
     dplyr::mutate(type = "prev")
-  cur_cpue <- cpue_sab_strat %>%
+  cur_cpue <- cpue_sab_strat[, 1:5] %>%
     dplyr::mutate(type = "cur")
   stn_area = dat[[5]]
 
