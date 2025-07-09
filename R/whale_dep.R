@@ -48,7 +48,9 @@ whale_dep <- function(channel, station) {
     ggplot2::labs(x = "Depth stratum", y = "Station CPUE") +
     ggplot2::facet_wrap(~geo) +
     ggplot2::scale_y_continuous(expand = c(0, 0.01), limits = c(0, max(all_cpue$ds_mean + 0.02)), breaks = seq(0, max(all_cpue$ds_mean + 0.02), by = 0.1)) +
-    ggplot2::theme_bw()
+    ggplot2::theme_bw() +
+    ggplot2::theme(axis.text = ggplot2::element_text(size = 12), axis.title = ggplot2::element_text(size = 12),
+                   strip.text = ggplot2::element_text(size = 12))
 
-  ggplot2::ggsave(plot = cpue_plt, filename = paste0("cpue_compare/", station, "_cpue_compare.png"), height = 16, width = 16)
+  ggplot2::ggsave(plot = cpue_plt, filename = paste0("cpue_compare/", station, "_cpue_compare.png"), height = 14, width = 14)
 }
